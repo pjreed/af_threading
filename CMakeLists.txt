@@ -11,9 +11,13 @@ project(af_threads
   VERSION 3.7.2
   LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_CXX_STANDARD 14)
 
 find_package(ArrayFire REQUIRED)
+find_package(Threads REQUIRED)
 
 add_executable(af_threads src/test.cpp)
-target_link_libraries(af_threads ArrayFire::af)
+target_link_libraries(af_threads
+  ArrayFire::afcuda
+  Threads::Threads
+)
