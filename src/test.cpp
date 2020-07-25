@@ -37,6 +37,7 @@ public:
 
 int main(int argc, char** argv)
 {
+  af::info();
   // Load our saple image
   af::array img1 = af::loadImage("../src/book1.png");
   af::array img2 = af::loadImage("../src/book2.png");
