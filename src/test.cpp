@@ -1,5 +1,6 @@
 #include <arrayfire.h>
 #include <iostream>
+#include <mutex>
 #include <thread>
 
 /*
@@ -8,10 +9,15 @@
  * to iterate through other images, compute their features, and match them
  * to the pre-computed ones.
  */
+std::mutex feature_mutex;
 class SharedFeatureHomographyComputer
 {
 public:
   void operator()() {
+    // You may think, perhaps the objects aren't thread safe and they just need
+    // to be protected by a mutex; but no, this does nothing
+    std::lock_guard<std::mutex> lock(feature_mutex);
+
     af::features f1;
     af::array d1;
     af::orb(f1, d1, img1_);
